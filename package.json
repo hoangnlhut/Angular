@@ -1,0 +1,23 @@
+{
+  "name": "typescript",
+  "version": "1.0.0",
+  "description": "typescript learning",
+  "homepage": "https://github.com/hoangnlhut/Angular#readme",
+  "bugs": {
+    "url": "https://github.com/hoangnlhut/Angular/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hoangnlhut/Angular.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "module",
+  "main": "indexWarmUp.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "typescript": "^5.9.2"
+  }
+}
