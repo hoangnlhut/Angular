@@ -1,6 +1,8 @@
-<div>
+@for (user of users; track $index) {
+<div id="{{ user.id }}">
   <button>
-    <img src="" alt="" />
-    <span>NAME</span>
+    <img [src]="'assets/users/' + user.avatar" [alt]="user.name" />
+    <span>{{ user.name }}</span>
   </button>
 </div>
+}
