@@ -8,5 +8,20 @@ import { DUMMY_USERS } from '../dummy-users';
   styleUrl: './user.css'
 })
 export class User {
-  protected readonly users = DUMMY_USERS;
-}
+
+  users = DUMMY_USERS;
+
+  // private imageBasePath = 'assets/users/';
+
+  // set imagePath(path: string) {
+  //   this.imageBasePath += path;
+  // }
+  // get imagePath() {
+  //   return this.imageBasePath;
+  // }
+
+  onSelectUser(user: { id: string; name: string; avatar: string; }) {
+    alert('User selected!');
+    console.log(user);
+  } 
+} 

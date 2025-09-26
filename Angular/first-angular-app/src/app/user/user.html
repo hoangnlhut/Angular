@@ -1,6 +1,6 @@
 @for (user of users; track $index) {
 <div id="{{ user.id }}">
-  <button>
+  <button (click)="onSelectUser(user)">
     <img [src]="'assets/users/' + user.avatar" [alt]="user.name" />
     <span>{{ user.name }}</span>
   </button>
