@@ -1,7 +1,7 @@
-@for (user of users; track $index) {
+@for (user of users(); track $index) {
 <div id="{{ user.id }}">
   <button (click)="onSelectUser(user)">
-    <img [src]="'assets/users/' + user.avatar" [alt]="user.name" />
+    <img [src]="getCorrectImagePath(user.avatar)" [alt]="user.name" />
     <span>{{ user.name }}</span>
   </button>
 </div>

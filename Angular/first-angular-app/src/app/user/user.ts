@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, computed, effect, linkedSignal, signal } from '@angular/core';
 import { DUMMY_USERS } from '../dummy-users';
 
 @Component({
@@ -9,13 +9,18 @@ import { DUMMY_USERS } from '../dummy-users';
 })
 export class User {
 
-  users = DUMMY_USERS;
+  users = signal(DUMMY_USERS);
 
-  // private imageBasePath = 'assets/users/';
+  // computedUsers = computed(() => this.users());
+  // effectUsers = effect(() => this.users());
+  // userCustomTheme = linkedSignal(() => this.users());
+  
+  getCorrectImagePath(avatar: string) {
+    return 'assets/users/' + avatar;
+  }
 
-  // set imagePath(path: string) {
-  //   this.imageBasePath += path;
-  // }
+
+  // CAN't NOT USE THIS BECAUSE WE ARE NOW USING SIGNAL
   // get imagePath() {
   //   return this.imageBasePath;
   // }
