@@ -1,6 +1,15 @@
-<div [id]="id()">
+<!-- this code for using input() is read-only Signal()  -->
+<!-- <div [id]="id()">
   <button (click)="onSelectUser({ id: id(), name: name(), avatar: avartar() })">
     <img [src]="imagePath()" [alt]="name()" />
     <span>{{ name() }}</span>
+  </button>
+</div> -->
+
+<!-- this code for using @INPUT as DECORATOR PROPERTY -> OLD WAY-->
+<div [id]="id">
+  <button (click)="onSelectUser({ id: id, name: name, avatar: avartar })">
+    <img [src]="imagePath" [alt]="name" />
+    <span>{{ name }}</span>
   </button>
 </div>
