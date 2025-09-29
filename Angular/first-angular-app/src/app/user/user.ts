@@ -8,9 +8,9 @@ import { Component, computed, effect, Input, linkedSignal, signal } from '@angul
   styleUrl: './user.css'
 })
 export class User {
-  @Input() avartar!: string;
-  @Input() name!: string;
-  @Input() id!: string;
+  @Input({required: true}) avartar!: string;
+  @Input({required: true}) name!: string;
+  @Input({required: true}) id!: string;
 
   get imagePath() {
     return `assets/users/${this.avartar}`;
