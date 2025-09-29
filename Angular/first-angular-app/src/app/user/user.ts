@@ -1,4 +1,4 @@
-import { Component, Input,  Output,  EventEmitter, output } from '@angular/core';
+import { Component, Input,  Output,  EventEmitter,input, output } from '@angular/core';
 
 
 @Component({
@@ -10,9 +10,8 @@ import { Component, Input,  Output,  EventEmitter, output } from '@angular/core'
 export class User {
   // OLD WAY (not recommended) using @INPUT and @OUTPUT DECORATOR property
   // but this way , you can update the value of input property inside this component
-  @Input({required: true}) avartar!: string;  
-  @Input({required: true}) name!: string;
-  @Input({required: true}) id!: string;
+
+  @Input({required: true}) user!: { id: string; name: string; avatar: string; };  
 
   //using @OUTPUT DECORATOR property
   @Output() select1 = new EventEmitter();
@@ -22,7 +21,7 @@ export class User {
   selecthoang = output<{ id: string; name: string; avatar: string; }>();
 
   get imagePath() {
-    return `assets/users/${this.avartar}`;
+    return `assets/users/${this.user.avatar}`;
   }
 
   onSelectUser(user: { id: string; name: string; avatar: string; }) {
