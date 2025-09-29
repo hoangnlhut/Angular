@@ -1,4 +1,4 @@
-import { Component, Input,  Output,  EventEmitter } from '@angular/core';
+import { Component, Input,  Output,  EventEmitter, output } from '@angular/core';
 
 
 @Component({
@@ -8,23 +8,29 @@ import { Component, Input,  Output,  EventEmitter } from '@angular/core';
   styleUrl: './user.css'
 })
 export class User {
-  // OLD WAY (not recommended) using @INPUT DECORATOR property
+  // OLD WAY (not recommended) using @INPUT and @OUTPUT DECORATOR property
   // but this way , you can update the value of input property inside this component
   @Input({required: true}) avartar!: string;  
   @Input({required: true}) name!: string;
   @Input({required: true}) id!: string;
 
-  @Output() select = new EventEmitter();
+  //using @OUTPUT DECORATOR property
+  @Output() select1 = new EventEmitter();
+
+  //using output() function : has the same function as @Output() decorator property
+  //but output is more strict than @Output decorator property by defining the type of event emitter WILL BE EMITTED
+  selecthoang = output<{ id: string; name: string; avatar: string; }>();
 
   get imagePath() {
     return `assets/users/${this.avartar}`;
   }
 
   onSelectUser(user: { id: string; name: string; avatar: string; }) {
-      this.select.emit(user);
+    // this line will emit the event to the parent component  
+    this.selecthoang.emit(user);
   } 
 
-  /* NEW WAY (recommended) using SIGNAL and INPUT FUNCTION
+  /* NEW WAY (recommended) using SIGNAL and INPUT FUNCTION and OUTPUT singal fuction */
 
   // --> it will you change detection base Singal on Angular (ADVANTAEGE)
   // NOTE: input() function is READ-ONLY, so we cannot change its value inside this component
@@ -37,5 +43,5 @@ export class User {
   // onSelectUser(user: { id: string; name: string; avatar: string; }) {
   // } 
 
-  */
+  
 } 

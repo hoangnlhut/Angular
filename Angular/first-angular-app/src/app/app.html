@@ -7,10 +7,13 @@
         [avartar]="user.avatar"
         [name]="user.name"
         [id]="user.id"
-        (select)="SelectOnUserHoang($event)"
+        (selecthoang)="SelectOnUserHoang($event)"
       ></app-user>
     </li>
     }
   </ul>
+  <section id="fallback">
+    <app-tasks></app-tasks>
+  </section>
 </main>
 <router-outlet></router-outlet>
