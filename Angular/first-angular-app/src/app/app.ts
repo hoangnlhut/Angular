@@ -2,6 +2,7 @@ import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Header } from './header/header';
 import { User } from './user/user';
+import { DUMMY_USERS } from './dummy-users';
 
 
 @Component({
@@ -12,5 +13,5 @@ import { User } from './user/user';
   styleUrl: './app.css'
 })
 export class App {
-  protected readonly title = signal('first-angular-app made by Hoang');
+  users = signal(DUMMY_USERS);
 }
