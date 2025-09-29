@@ -1,4 +1,4 @@
-import { Component, computed, effect, Input, linkedSignal, signal } from '@angular/core';
+import { Component, computed, effect, input, Input, linkedSignal, signal } from '@angular/core';
 
 
 @Component({
@@ -8,15 +8,23 @@ import { Component, computed, effect, Input, linkedSignal, signal } from '@angul
   styleUrl: './user.css'
 })
 export class User {
-  @Input({required: true}) avartar!: string;
-  @Input({required: true}) name!: string;
-  @Input({required: true}) id!: string;
+  // @Input({required: true}) avartar!: string;
+  // @Input({required: true}) name!: string;
+  // @Input({required: true}) id!: string;
 
-  get imagePath() {
-    return `assets/users/${this.avartar}`;
-  }
+  //INPUT is only readonly SIGNAL
+  //SO We can't change value of INPUT in CHILD COMPONENT
+  avartar = input.required<string>(); 
+  name = input.required<string>();
+  id = input.required<string>();
+
+  imagePath = computed(() => `assets/users/${this.avartar()}`);
 
   onSelectUser(user: { id: string; name: string; avatar: string; }) {
-    console.log(user);
+
+  //INPUT is only readonly SIGNAL
+  //SO We can't change value of INPUT in CHILD COMPONENT
+  // this.name.set('Selected: ' + user.name);
+  
   } 
 } 

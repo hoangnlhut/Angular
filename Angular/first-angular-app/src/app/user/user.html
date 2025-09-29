@@ -1,6 +1,6 @@
-<div [id]="id">
-  <button (click)="onSelectUser({ id: id, name: name, avatar: avartar })">
-    <img [src]="imagePath" [alt]="name" />
-    <span>{{ name }}</span>
+<div [id]="id()">
+  <button (click)="onSelectUser({ id: id(), name: name(), avatar: avartar() })">
+    <img [src]="imagePath()" [alt]="name()" />
+    <span>{{ name() }}</span>
   </button>
 </div>
