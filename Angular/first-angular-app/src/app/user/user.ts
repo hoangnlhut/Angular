@@ -1,4 +1,4 @@
-import { Component, computed, effect, input, Input, linkedSignal, signal } from '@angular/core';
+import { Component, Input,  Output,  EventEmitter } from '@angular/core';
 
 
 @Component({
@@ -14,12 +14,14 @@ export class User {
   @Input({required: true}) name!: string;
   @Input({required: true}) id!: string;
 
+  @Output() select = new EventEmitter();
+
   get imagePath() {
     return `assets/users/${this.avartar}`;
   }
 
   onSelectUser(user: { id: string; name: string; avatar: string; }) {
-      
+      this.select.emit(user);
   } 
 
   /* NEW WAY (recommended) using SIGNAL and INPUT FUNCTION

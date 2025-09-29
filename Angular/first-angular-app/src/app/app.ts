@@ -14,4 +14,8 @@ import { DUMMY_USERS } from './dummy-users';
 })
 export class App {
   users = signal(DUMMY_USERS);
+
+  SelectOnUserHoang(user: { id: string; name: string; avatar: string; }) {
+    console.log('Log in App Component - user information' + JSON.stringify(user) );
+  }
 }
