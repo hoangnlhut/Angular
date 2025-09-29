@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, computed, Input, input, signal } from '@angular/core';
 
 @Component({
   selector: 'app-tasks',
@@ -7,5 +7,8 @@ import { Component } from '@angular/core';
   styleUrl: './tasks.css'
 })
 export class Tasks {
+  @Input() nameUser :string | undefined ; // this union type --> 
+  //  @Input() nameUser?:string   --> aqual to above 
 
+;
 }
