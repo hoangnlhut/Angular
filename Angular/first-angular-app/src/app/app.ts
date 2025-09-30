@@ -1,7 +1,7 @@
 import { Component, signal, computed } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Header } from './header/header';
-import { User } from './user/user';
+import { User, IUser } from './user/user';
 import { DUMMY_USERS } from './dummy-users';
 import { Tasks } from './tasks/tasks';
 
@@ -21,7 +21,7 @@ export class App {
     return this.users().find(u => u.id === this.selectedUserId);
   }
 
-  SelectOnUserHoang(user: { id: string; name: string; avatar: string; }) {
+  SelectOnUserHoang(user: IUser) {
     console.log('Log in App Component IN SelectOnUserHoang- user information' + JSON.stringify(user) );
     this.selectedUserId = user.id;
   }

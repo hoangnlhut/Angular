@@ -1,5 +1,11 @@
 import { Component, Input,  Output,  EventEmitter,input, output } from '@angular/core';
 
+export interface IUser
+{ 
+  id: string; 
+  name: string; 
+  avatar: string; 
+};
 
 @Component({
   selector: 'app-user',
@@ -11,20 +17,20 @@ export class User {
   // OLD WAY (not recommended) using @INPUT and @OUTPUT DECORATOR property
   // but this way , you can update the value of input property inside this component
 
-  @Input({required: true}) user!: { id: string; name: string; avatar: string; };  
+  @Input({required: true}) user!: IUser;  
 
   //using @OUTPUT DECORATOR property
   @Output() select1 = new EventEmitter();
 
   //using output() function : has the same function as @Output() decorator property
   //but output is more strict than @Output decorator property by defining the type of event emitter WILL BE EMITTED
-  selecthoang = output<{ id: string; name: string; avatar: string; }>();
+  selecthoang = output<IUser>();
 
   get imagePath() {
     return `assets/users/${this.user.avatar}`;
   }
 
-  onSelectUser(user: { id: string; name: string; avatar: string; }) {
+  onSelectUser(user: IUser) {
     // this line will emit the event to the parent component  
     this.selecthoang.emit(user);
   } 
@@ -44,3 +50,5 @@ export class User {
 
   
 } 
+
+
