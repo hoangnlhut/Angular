@@ -3,12 +3,15 @@
   <ul id="users">
     @for (user of users(); track user.id) {
     <li>
-      <app-user [user]="user" (selecthoang)="SelectOnUserHoang($event)"></app-user>
+      <app-user [user]="user" (selecthoang)="SelectOnUserHoang($event)" />
     </li>
     }
   </ul>
-  <section id="fallback">
-    <app-tasks [nameUser]="selectedUser?.name"> </app-tasks>
-  </section>
+
+  @if (selectedUser) {
+  <app-tasks [nameUser]="selectedUser.name" />
+  } @else {
+  <p id="fallback">Please select a user to see their tasks.</p>
+  }
 </main>
 <router-outlet></router-outlet>
