@@ -1,3 +1,7 @@
+@if(isAddingTask) {
+<app-new-task (cancel)="onCancelAddTask()" [userId]="user.id" />
+}
+
 <section id="tasks">
   <header>
     <h2>{{ user.name }}'s Task</h2>
@@ -7,8 +11,8 @@
   </header>
 
   <ul>
-    @for (task of user.tasks; track task.id) {
+    @for (task of user.tasks; track task.id) { @if (!task.completed) {
     <li><app-task [task]="task" /></li>
-    }
+    } }
   </ul>
 </section>
