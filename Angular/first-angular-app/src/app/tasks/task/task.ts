@@ -1,10 +1,12 @@
 import { Component, Input, output, signal } from '@angular/core';
 import { ITask } from './task.model';
 import { DUMMY_USERS } from '../../dummy-users';
+import { Card } from '../../shared/card/card';
+
 
 @Component({
   selector: 'app-task',
-  imports: [],
+  imports: [Card],
   templateUrl: './task.html',
   styleUrl: './task.css'
 })
