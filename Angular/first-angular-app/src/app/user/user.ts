@@ -11,7 +11,8 @@ export class User {
   // OLD WAY (not recommended) using @INPUT and @OUTPUT DECORATOR property
   // but this way , you can update the value of input property inside this component
 
-  @Input({required: true}) user!: IUser;  
+  @Input({required: true}) user!: IUser;
+  @Input({required: true}) selected!: boolean;  
 
   //using @OUTPUT DECORATOR property
   @Output() select1 = new EventEmitter();
