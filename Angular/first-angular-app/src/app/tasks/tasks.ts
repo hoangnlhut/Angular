@@ -1,10 +1,9 @@
 import { Component, Input, signal } from '@angular/core';
 import { Task } from './task/task';
-import { DUMMY_USERS } from '../dummy-users';
 import { IUser } from '../user/user.model';
 import { NewTask } from './new-task/new-task';
-
-
+import { ITaskModel } from './task/task.model';
+import { TasksService } from './tasks.service';
 
 @Component({
   selector: 'app-tasks',
@@ -13,10 +12,15 @@ import { NewTask } from './new-task/new-task';
   styleUrl: './tasks.css'
 })
 export class Tasks {
+  
+  constructor(private taskService: TasksService) {}
+ 
   @Input({required: true}) user!: IUser ;
-  // this union type --> 
   isAddingTask = false;
-  //  @Input() nameUser?:string   --> aqual to above 
+
+  get tasksData()  {
+    return this.taskService.getAllTasks(this.user.id);
+  }
 
   AddTask(idUser: string) {
     this.isAddingTask = true;
@@ -24,6 +28,11 @@ export class Tasks {
 
   onCancelAddTask() {
      this.isAddingTask = false;
+  }
+
+  OnAddTask(task: ITaskModel) {
+    this.taskService.addTaskToUser(this.user.id, task);
+    this.isAddingTask = false;
   }
 
 }
