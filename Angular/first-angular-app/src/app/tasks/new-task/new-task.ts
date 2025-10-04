@@ -1,4 +1,4 @@
-import { Component, Input, output } from '@angular/core';
+import { Component, inject, Input, output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TasksService } from '../tasks.service';
 import { ITaskModel } from '../task/task.model';
@@ -15,9 +15,11 @@ function generateRandomId(): string {
   styleUrl: './new-task.css'
 })
 export class NewTask {
+  @Input({required: true}) userId!: string;
+  private taskService = inject(TasksService);
 
   cancel = output<void>();
-  addTask = output<ITaskModel>();
+  addTask = output<void>();
 
   enteredTitleModel= '';
   enteredSummaryModel = '';
@@ -28,10 +30,11 @@ export class NewTask {
   }
 
   onSubmit() {
-    this.addTask.emit({ 
+    this.taskService.addTaskToUser(this.userId, { 
       title: this.enteredTitleModel,
       dueDate: this.enteredDueDateModel,
       summary: this.enteredSummaryModel  
     });
+    this.addTask.emit();
   }
 }

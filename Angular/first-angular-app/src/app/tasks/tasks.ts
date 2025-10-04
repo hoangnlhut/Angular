@@ -30,8 +30,7 @@ export class Tasks {
      this.isAddingTask = false;
   }
 
-  OnAddTask(task: ITaskModel) {
-    this.taskService.addTaskToUser(this.user.id, task);
+  OnAddTask() {
     this.isAddingTask = false;
   }
 
