@@ -1,8 +1,15 @@
 export interface ITask
 { 
-  id: string; 
+  id: string;
+  userId: string; 
   title: string; 
   completed: boolean;
-  dueDate: string | Date;
+  dueDate: string ;
   summary: string; 
+}
+
+export interface ITaskModel {
+   title: string; 
+   dueDate: string;
+   summary: string;
 }

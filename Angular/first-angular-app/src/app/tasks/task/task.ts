@@ -1,30 +1,24 @@
-import { Component, Input, output, signal } from '@angular/core';
+import { Component, Input, output, inject } from '@angular/core';
 import { ITask } from './task.model';
-import { DUMMY_USERS } from '../../dummy-users';
 import { Card } from '../../shared/card/card';
+import { DatePipe } from '@angular/common';
+import { TasksService } from '../tasks.service';
 
 
 @Component({
   selector: 'app-task',
-  imports: [Card],
+  imports: [Card, DatePipe],
   templateUrl: './task.html',
   styleUrl: './task.css'
 })
 export class Task {
-  @Input() task?: ITask ;
-  userData = signal(DUMMY_USERS);
-
+  private _taskService = inject(TasksService);
+  
+  @Input() task!: ITask ;
   displayNewTask = output<boolean>();
 
   completeTask(idTask?: string) {
-    for (const user of this.userData()) {
-      const task = user.tasks.find(t => t.id === idTask);
-      if (task) {
-        task.completed = !task.completed;
-        break; // Exit the loop once the task is found and updated
-      }
-    }
-
+    this._taskService.removeTask(idTask || '');
     this.displayNewTask.emit(true);
   }
 }
