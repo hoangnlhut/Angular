@@ -18,15 +18,14 @@ export class NewTask {
   @Input({required: true}) userId!: string;
   private taskService = inject(TasksService);
 
-  cancel = output<void>();
-  addTask = output<void>();
+  close = output<void>();
 
   enteredTitleModel= '';
   enteredSummaryModel = '';
   enteredDueDateModel = '';
 
   onCancel(){
-        this.cancel.emit();
+        this.close.emit();
   }
 
   onSubmit() {
@@ -35,6 +34,6 @@ export class NewTask {
       dueDate: this.enteredDueDateModel,
       summary: this.enteredSummaryModel  
     });
-    this.addTask.emit();
-  }
+    this.close.emit();
+  } 
 }

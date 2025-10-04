@@ -32,7 +32,7 @@ export class TasksService{
     removeTask(idTask: string) {
         const task = this.getTask(idTask);
         if (task) {
-            task.completed = !task.completed;
+            task.completed = true;
         }
     }
 }

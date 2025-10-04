@@ -26,12 +26,9 @@ export class Tasks {
     this.isAddingTask = true;
   }
 
-  onCancelAddTask() {
+  onCloseAddTask() {
      this.isAddingTask = false;
   }
 
-  OnAddTask() {
-    this.isAddingTask = false;
-  }
 
 }

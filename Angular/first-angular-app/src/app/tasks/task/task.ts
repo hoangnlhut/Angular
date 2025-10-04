@@ -12,13 +12,13 @@ import { TasksService } from '../tasks.service';
   styleUrl: './task.css'
 })
 export class Task {
-  private _taskService = inject(TasksService);
+  private taskService = inject(TasksService);
   
   @Input() task!: ITask ;
   displayNewTask = output<boolean>();
 
-  completeTask(idTask?: string) {
-    this._taskService.removeTask(idTask || '');
+  completeTask(idTask: string) {
+    this.taskService.removeTask(idTask);
     this.displayNewTask.emit(true);
   }
 }
