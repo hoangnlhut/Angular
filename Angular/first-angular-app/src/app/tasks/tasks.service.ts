@@ -5,6 +5,17 @@ import { Injectable } from "@angular/core";
 @Injectable({providedIn: 'root'})
 export class TasksService{
     private tasksData = DUMMY_TASKS;
+    
+    constructor() {
+        const tasksLocalStorage = localStorage.getItem('tasks');
+        if (tasksLocalStorage) {
+            this.tasksData = JSON.parse(tasksLocalStorage);
+        }
+    }
+
+    private SaveTasks() {
+        localStorage.setItem('tasks', JSON.stringify(this.tasksData));
+    }
 
     private generateRandomId(): string {
     return Math.random().toString(36).substring(2, 9); // Generates a 7-character string
@@ -27,6 +38,8 @@ export class TasksService{
             completed: false,
             userId: userId
         });
+
+        this.SaveTasks();
     }
 
     removeTask(idTask: string) {
@@ -34,5 +47,6 @@ export class TasksService{
         if (task) {
             task.completed = true;
         }
+        this.SaveTasks();
     }
 }
