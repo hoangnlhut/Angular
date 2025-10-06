@@ -9,8 +9,8 @@ import { IUser } from './user/user.model';
 
 @Component({
   selector: 'app-root',
-  standalone: true,
-  imports: [RouterOutlet, Header, User, Tasks ],
+  standalone: false,   // switch to false so you can be able to import to App Module
+  // imports: [RouterOutlet, Header, User, Tasks ],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
