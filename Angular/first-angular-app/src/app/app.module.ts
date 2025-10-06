@@ -9,11 +9,12 @@ import { Tasks } from "./tasks/tasks";
 import { Card } from "./shared/card/card";
 import { Task } from "./tasks/task/task";
 import { NewTask } from "./tasks/new-task/new-task";
+import { SharedModule } from "./shared/share.module";
 
 @NgModule({
-    declarations: [App, Tasks, User, Card, Header, Task, NewTask],  //declare and register only modules
+    declarations: [App, Tasks, User, Header, Task, NewTask],  //declare and register only modules
     bootstrap: [App],  //specify the root component that Angular should bootstrap when it starts the application
-    imports: [BrowserModule, FormsModule ] //this array can be standalone components, modules or for including other modules
+    imports: [BrowserModule, FormsModule, SharedModule ] //this array can be standalone components, modules or for including other modules
  //this array can be standalone components, modules or for including other modules
 })
 export class AppModule {
