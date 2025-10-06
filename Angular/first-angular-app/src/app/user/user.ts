@@ -1,12 +1,11 @@
 import { Component, Input,  Output,  EventEmitter,input, output } from '@angular/core';
 import { IUser } from './user.model';
-import { Card } from '../shared/card/card';
 
 @Component({
   selector: 'app-user',
-  imports: [Card],
   templateUrl: './user.html',
-  styleUrl: './user.css'
+  styleUrl: './user.css',
+  standalone: false,
 })
 export class User {
   // OLD WAY (not recommended) using @INPUT and @OUTPUT DECORATOR property

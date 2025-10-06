@@ -10,9 +10,9 @@ function generateRandomId(): string {
 
 @Component({
   selector: 'app-new-task',
-  imports: [FormsModule],
   templateUrl: './new-task.html',
-  styleUrl: './new-task.css'
+  styleUrl: './new-task.css',
+  standalone: false,
 })
 export class NewTask {
   @Input({required: true}) userId!: string;
