@@ -2,6 +2,7 @@ import { Component, signal } from '@angular/core';
 import { UserInput } from './user-input/user-input';
 import { InvestmentResults } from './investment-results/investment-results';
 import { Header } from './header/header';
+import type { InvestmentInput } from './investment-results/investment-input.model';
 
 @Component({
   selector: 'app-root',
@@ -12,12 +13,7 @@ import { Header } from './header/header';
 export class App {
   protected readonly title = signal('invesment-calculator');
 
-  onCalculateInvestmentResults(data: {
-    initialInvestment: number;
-    duration: number;
-    expectedReturn: number;
-    annualInvestment: number;
-  }) {
+  onCalculateInvestmentResults(data: InvestmentInput) {
 
     const { initialInvestment, annualInvestment, expectedReturn, duration } = data;
             
