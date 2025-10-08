@@ -9,10 +9,10 @@ import { FormsModule } from '@angular/forms';
 })
 export class UserInput {
 
-  enteredInitialInvestment: any;
-  enteredAnnualInvestment: any;
-  enteredExpectedReturn: any;
-  enteredDuration: any;
+  enteredInitialInvestment = '0';
+  enteredAnnualInvestment = '0';
+  enteredExpectedReturn = '5';
+  enteredDuration = '10';
 
   onSubmit(){
     throw new Error('Method not implemented.');
