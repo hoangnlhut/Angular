@@ -12,13 +12,16 @@ import type { InvestmentInput, InvestmentResult } from './investment-results/inv
 })
 export class App {
   protected readonly title = signal('invesment-calculator');
-  resultsData ?: InvestmentResult[];
+  // resultsData ?: InvestmentResult[];
+
+  //using signal
+  resultsData = signal<InvestmentResult[] | undefined>(undefined);
 
   onCalculateInvestmentResults(data: InvestmentInput) {
 
     const { initialInvestment, annualInvestment, expectedReturn, duration } = data;
             
-    this.resultsData = [];
+    const annualData = [];
     let investmentValue = initialInvestment;
 
     for (let i = 0; i < duration; i++) {
@@ -27,7 +30,7 @@ export class App {
       investmentValue += interestEarnedInYear + annualInvestment;
       const totalInterest =
         investmentValue - annualInvestment * year - initialInvestment;
-      this.resultsData.push({
+      annualData.push({
         year: year,
         interest: interestEarnedInYear,
         valueEndOfYear: investmentValue,
@@ -37,7 +40,6 @@ export class App {
       });
     }
 
-    return this.resultsData;
-
+    this.resultsData.set(annualData);
   }
 }
