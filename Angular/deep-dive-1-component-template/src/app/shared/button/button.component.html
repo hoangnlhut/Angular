@@ -1,4 +1,4 @@
-<button>
-  <span>{{ title() }}</span>
-  <span class="icon">{{ icon() }}</span>
-</button>
+<span>
+  <ng-content />
+</span>
+<ng-content select=".icon" />

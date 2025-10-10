@@ -9,6 +9,4 @@ import { ButtonComponent } from "../../../shared/button/button.component";
   styleUrl: './new-ticket.component.css'
 })
 export class NewTicketComponent {
-    title = 'Submit';
-    icon = '▶';
 }
