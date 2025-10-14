@@ -4,12 +4,13 @@ import { TicketsComponent } from './dashboard/tickets/tickets.component';
 import { TrafficComponent } from './dashboard/traffic/traffic.component';
 import { ServerStatusComponent } from './dashboard/server-status/server-status.component';
 import { DashboardItemComponent } from "./dashboard/dashboard-item/dashboard-item.component";
+import { LifeCycleComponentComponent } from "./life-cycle-component/life-cycle-component.component";
 
 @Component({
   selector: 'app-root',
   standalone: true,
   templateUrl: './app.component.html',
-  imports: [HeaderComponent, ServerStatusComponent, TicketsComponent, TrafficComponent, DashboardItemComponent],
+  imports: [HeaderComponent, ServerStatusComponent, TicketsComponent, TrafficComponent, DashboardItemComponent, LifeCycleComponentComponent],
 })
 export class AppComponent {
   imgInfoServer =  {src: 'status.png', alt: 'A signal symbol'};
