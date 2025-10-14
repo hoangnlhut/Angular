@@ -7,6 +7,10 @@ import { Component, ViewEncapsulation, input} from '@angular/core';
   templateUrl: './control.component.html',
   styleUrl: './control.component.css',
   encapsulation: ViewEncapsulation.None,
+  host: {   
+    class: 'control',
+    id: 'hoang'
+  }
 })
 export class ControlComponent {
     label = input<string>();
