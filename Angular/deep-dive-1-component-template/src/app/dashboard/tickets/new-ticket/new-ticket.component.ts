@@ -13,7 +13,11 @@ import { ControlComponent } from "../../../shared/control/control.component";
 })
 export class NewTicketComponent {
 
-  onSubmit() {
+  onSubmit(enteredTitleElement : HTMLInputElement, enteredRequestElement : HTMLTextAreaElement) {
+    console.dir(enteredTitleElement);
+    console.log("Title submitted: " + enteredTitleElement.value);
+    console.dir(enteredRequestElement);
+    console.log("Title submitted: " + enteredRequestElement.value);
     console.log('SUBMITTED');
   }
 }
