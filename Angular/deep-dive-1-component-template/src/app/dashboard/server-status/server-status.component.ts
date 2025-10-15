@@ -39,11 +39,6 @@ export class ServerStatusComponent implements OnInit{
     });
   }
 
-  turnOff(){
-     // not available in old version 
-    
-  }
-
   
   // ngOnDestroy(): void {
   //   clearTimeout(this.interval);
