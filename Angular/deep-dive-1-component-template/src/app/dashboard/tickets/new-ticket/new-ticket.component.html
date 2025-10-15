@@ -1,10 +1,18 @@
 <form (ngSubmit)="onSubmit(enteredTitle.value, enteredRequest.value)" #form>
+  <!-- each app-control below declare only one template variable due to only one input in each of them so we wil use  -->
+
   <app-control label="Title">
-    <input type="text" name="title" id="title" #enteredTitle />
+    <input type="text" name="title" id="title" #enteredTitle #input />
   </app-control>
 
   <app-control label="Request">
-    <textarea name="request" id="request" rows="3" #enteredRequest></textarea>
+    <textarea
+      name="request"
+      id="request"
+      rows="3"
+      #enteredRequest
+      #input
+    ></textarea>
   </app-control>
 
   <p>
