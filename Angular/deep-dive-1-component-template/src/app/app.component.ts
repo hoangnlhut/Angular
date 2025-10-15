@@ -21,4 +21,16 @@ export class AppComponent {
 
   imgInfoTickets = {src: 'list.png', alt: 'A list of items'};
   h2InfoTickets = 'Support Tickets';
+  
+
+  lifecycleComponentIsVisible = false;
+  lifecycleInputText = 'Some Random Number: ' + Math.random() * 100;
+
+  onToggleLifecycleComponentVisibility() {
+    this.lifecycleComponentIsVisible = !this.lifecycleComponentIsVisible;
+  }
+
+  onChangeLifecycleInputText() {
+    this.lifecycleInputText = 'Some Random Number: ' + Math.random() * 100;
+  }
 }

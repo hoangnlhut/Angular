@@ -15,5 +15,16 @@
     </app-dashboard-item>
   </div>
 
-  <app-life-cycle-component />
+  <div id="buttons">
+    <button (click)="onToggleLifecycleComponentVisibility()">
+      Toggle Lifecycle Component Visibility
+    </button>
+    <button (click)="onChangeLifecycleInputText()">
+      Change Lifecycle Component Text
+    </button>
+  </div>
+
+  @if (lifecycleComponentIsVisible) {
+  <app-life-cycle-component [text]="lifecycleInputText" />
+  }
 </main>

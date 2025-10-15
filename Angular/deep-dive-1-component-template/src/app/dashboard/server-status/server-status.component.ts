@@ -13,21 +13,21 @@ export class ServerStatusComponent implements OnInit {
   constructor(){}
 
   ngOnInit(){
-    setInterval(()=> {
-      const rnd = Math.random(); //0 -> 0.99999
+    // setInterval(()=> {
+    //   const rnd = Math.random(); //0 -> 0.99999
 
-      if(rnd < 0.5)
-      {
-        this.currentStatus = 'online';
-      }
-      else if(rnd < 0.9)
-      {
-        this.currentStatus = 'offline';
-      }
-      else{
-        this.currentStatus = 'unknown';
-      }
+    //   if(rnd < 0.5)
+    //   {
+    //     this.currentStatus = 'online';
+    //   }
+    //   else if(rnd < 0.9)
+    //   {
+    //     this.currentStatus = 'offline';
+    //   }
+    //   else{
+    //     this.currentStatus = 'unknown';
+    //   }
 
-    }, 3000);
+    // }, 3000);
   }
 }
