@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, input, signal } from '@angular/core';
 import type { TicketModel } from '../ticket.model';
 
 @Component({
@@ -10,4 +10,14 @@ import type { TicketModel } from '../ticket.model';
 })
 export class TicketComponent {
     data = input.required<TicketModel>();
+
+    detailVisible = signal(true);
+
+    onToggleDetails() {
+      //1st ways 
+      // this.detailVisible.set(!this.detailVisible());
+
+      //2nd way is better due to we can get previous value
+      this.detailVisible.update((wasVisible) => !wasVisible);
+    }
 }
