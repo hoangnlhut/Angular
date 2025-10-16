@@ -19,7 +19,7 @@ export class ControlComponent {
   private el =inject(ElementRef); // we can access this host element via coding like this
 
   // using ContentChild Decorator
-  @ContentChild('input') private control ?: ElementRef<HTMLInputElement | HTMLTextAreaElement>;
+  // @ContentChild('input') private control ?: ElementRef<HTMLInputElement | HTMLTextAreaElement>;
 
   // using contentChild signal-based new function
     private control1 = contentChild<ElementRef<HTMLInputElement | HTMLTextAreaElement>>('input');
@@ -29,7 +29,7 @@ export class ControlComponent {
     console.log(this.el);
     
     // using ContentChild Decorator
-    console.log(this.control);
+    // console.log(this.control);
 
     // using contentChild function
     console.log(this.control1());
