@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, OnInit, viewChild, ViewChild } from '@angular/core';
+import { afterNextRender, afterRender, AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 import { ButtonComponent } from "../../../shared/button/button.component";
@@ -14,6 +14,18 @@ import { ControlComponent } from "../../../shared/control/control.component";
 export class NewTicketComponent implements OnInit, AfterViewInit {
   @ViewChild('form') form? : ElementRef<HTMLFormElement>;
   // private form = viewChild.required<ElementRef<HTMLFormElement>>('form');
+
+  constructor(){
+      // run once for triggering to listen for next changes of entire application
+      afterNextRender(() => {
+        console.log("Constructor New-Ticket: run once in After Next Render");
+      });
+
+      //run everytime for future change of entire application
+      afterRender(() => {
+        console.log("Constructor New-Ticket: run everytime in After Render");
+      });
+  }
 
   ngOnInit(){
     console.log("ON INIT");
