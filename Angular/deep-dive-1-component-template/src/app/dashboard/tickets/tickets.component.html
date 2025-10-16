@@ -1,1 +1,7 @@
-<app-new-ticket />
+<div class="list-ticket">
+  <app-ticket [tickets]="tickets" />
+</div>
+
+<div class="new-ticket">
+  <app-new-ticket (add)="addNewTicket($event)" />
+</div>

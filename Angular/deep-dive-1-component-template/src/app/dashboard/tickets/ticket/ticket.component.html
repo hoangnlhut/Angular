@@ -1,1 +1,26 @@
-<p>ticket works!</p>
+<ul>
+  @for (item of tickets(); track item.id) {
+  <li>{{ item.title }} - {{ item.request }} - {{ item.status }}</li>
+  -
+  {{
+    $index
+  }}-
+  {{
+    $first
+  }}
+  -
+  {{
+    $last
+  }}
+  -
+  {{
+    $even
+  }}
+  -
+  {{
+    $odd
+  }}
+  } @empty {
+  <li>No Tickets Available</li>
+  }
+</ul>
