@@ -11,12 +11,12 @@ import { TimeInterval } from 'rxjs/internal/operators/timeInterval';
 export class ServerStatusComponent implements OnInit {
   currentStatus = signal<'online' | 'offline' | 'unknown'>('online');
   private destroyRef = inject(DestroyRef);
-
+  private loggingEffect = effect(() => {
+    console.log(`The current Status is: ${this.currentStatus()}`);
+  });
 
   constructor(){
-    effect(() => {
-      console.log(`The current Status is: ${this.currentStatus()}`);
-    });
+    this.loggingEffect;
   }
 
   ngOnInit(){
@@ -47,4 +47,6 @@ export class ServerStatusComponent implements OnInit {
   // ngOnDestroy(): void {
   //   clearTimeout(this.interval);
   // }
+
+ 
 }
