@@ -1,4 +1,4 @@
-import { Component, DestroyRef, inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, DestroyRef, effect, inject, OnDestroy, OnInit, signal } from '@angular/core';
 import { TimeInterval } from 'rxjs/internal/operators/timeInterval';
 
 @Component({
@@ -8,12 +8,16 @@ import { TimeInterval } from 'rxjs/internal/operators/timeInterval';
   templateUrl: './server-status.component.html',
   styleUrl: './server-status.component.css'
 })
-export class ServerStatusComponent implements OnInit{
-  currentStatus : 'online' | 'offline' | 'unknown' = 'online';
+export class ServerStatusComponent implements OnInit {
+  currentStatus = signal<'online' | 'offline' | 'unknown'>('online');
   private destroyRef = inject(DestroyRef);
 
 
-  constructor(){}
+  constructor(){
+    effect(() => {
+      console.log(`The current Status is: ${this.currentStatus()}`);
+    });
+  }
 
   ngOnInit(){
       const interval = setInterval(()=> {
@@ -21,14 +25,14 @@ export class ServerStatusComponent implements OnInit{
 
       if(rnd < 0.5)
       {
-        this.currentStatus = 'online';
+        this.currentStatus.set('online'); 
       }
       else if(rnd < 0.9)
       {
-        this.currentStatus = 'offline';
+        this.currentStatus.set('offline');
       }
       else{
-        this.currentStatus = 'unknown';
+        this.currentStatus.set('unknown');
       }
 
     }, 3000);
