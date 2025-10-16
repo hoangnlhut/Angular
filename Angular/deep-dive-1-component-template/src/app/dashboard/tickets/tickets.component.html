@@ -1,5 +1,13 @@
 <div class="list-ticket">
-  <app-ticket [tickets]="tickets" />
+  <ul>
+    @for(item of tickets; track item.id){
+    <li>
+      <app-ticket [data]="item" />
+    </li>
+    } @empty {
+    <li>No Tickets Available</li>
+    }
+  </ul>
 </div>
 
 <div class="new-ticket">

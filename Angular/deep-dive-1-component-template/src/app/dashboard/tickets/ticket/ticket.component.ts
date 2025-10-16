@@ -9,5 +9,5 @@ import type { TicketModel } from '../ticket.model';
   styleUrl: './ticket.component.css'
 })
 export class TicketComponent {
-    tickets = input<TicketModel[]>();
+    data = input.required<TicketModel>();
 }
