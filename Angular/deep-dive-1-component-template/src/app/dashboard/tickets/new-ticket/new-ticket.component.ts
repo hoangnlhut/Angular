@@ -15,6 +15,13 @@ import { TicketModel } from '../ticket.model';
 export class NewTicketComponent implements OnInit, AfterViewInit {
   @ViewChild('form') form? : ElementRef<HTMLFormElement>;
 
+  //two ways bindings in 2 approach
+  //1st normal way
+  enteredTitle = '';
+  enteredRequest = '';
+
+  //2nd
+
   add = output<TicketModel>();
   // private form = viewChild.required<ElementRef<HTMLFormElement>>('form');
 
@@ -40,19 +47,28 @@ export class NewTicketComponent implements OnInit, AfterViewInit {
     console.log("ON After View Init form " + this.form?.nativeElement);
   }
 
-  onSubmit(title : string, request : string) {
-    // console.dir(title);
-    // console.dir(request);
-    // console.log('SUBMITTED');
-    this.add.emit( {
-        id: Math.random().toString(),
-        title: title,
-        request : request,
-        status: 'open'
-    });
+  // onSubmit(title : string, request : string) {
+  //   this.add.emit( {
+  //       id: Math.random().toString(),
+  //       title: title,
+  //       request : request,
+  //       status: 'open'
+  //   });
 
-    this.form?.nativeElement.reset();
-    // this.form().nativeElement.reset();
+  //   this.form?.nativeElement.reset();
+  //   // this.form().nativeElement.reset();
+  // }
+
+  onSubmit(){
+      this.add.emit( {
+        id: Math.random().toString(),
+        title: this.enteredTitle,
+        request : this.enteredRequest,
+        status: 'open'
+      });
+
+      this.enteredTitle = '';
+      this.enteredRequest = '';
   }
 
 
