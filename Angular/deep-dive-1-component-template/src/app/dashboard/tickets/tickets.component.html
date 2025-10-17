@@ -1,3 +1,6 @@
+<div class="new-ticket">
+  <app-new-ticket (add)="addNewTicket($event)" />
+</div>
 <div class="list-ticket">
   <ul>
     @for(item of tickets; track item.id){
@@ -10,6 +13,14 @@
   </ul>
 </div>
 
-<div class="new-ticket">
-  <app-new-ticket (add)="addNewTicket($event)" />
+<div id="inputs">
+  <p>
+    <label>Width</label>
+    <input type="number" step="1.0" [(ngModel)]="rectSize.width" />
+  </p>
+  <p>
+    <label>Height</label>
+    <input type="number" step="1.0" [(ngModel)]="rectSize.height" />
+  </p>
 </div>
+<app-rec [(size)]="rectSize" />
