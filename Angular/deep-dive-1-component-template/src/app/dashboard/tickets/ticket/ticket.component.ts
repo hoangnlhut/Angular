@@ -1,5 +1,6 @@
-import { Component, input, signal } from '@angular/core';
+import { Component, input, signal, computed, effect, output } from '@angular/core';
 import type { TicketModel } from '../ticket.model';
+import { single } from 'rxjs';
 
 @Component({
   selector: 'app-ticket',
@@ -8,8 +9,10 @@ import type { TicketModel } from '../ticket.model';
   templateUrl: './ticket.component.html',
   styleUrl: './ticket.component.css'
 })
-export class TicketComponent {
+export class TicketComponent{
+  // @Input({required: true}) data !: TicketModel;
     data = input.required<TicketModel>();
+    onComplete = output<string>();
 
     detailVisible = signal(true);
 
@@ -20,4 +23,10 @@ export class TicketComponent {
       //2nd way is better due to we can get previous value
       this.detailVisible.update((wasVisible) => !wasVisible);
     }
+
+    onCloseTicket() {
+      this.onComplete.emit(this.data().id);
+    }
 }
+
+

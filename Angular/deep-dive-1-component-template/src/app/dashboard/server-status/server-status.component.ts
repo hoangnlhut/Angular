@@ -16,31 +16,31 @@ export class ServerStatusComponent implements OnInit {
   });
 
   constructor(){
-    this.loggingEffect;
+    // this.loggingEffect;
   }
 
   ngOnInit(){
-      const interval = setInterval(()=> {
-      const rnd = Math.random(); //0 -> 0.99999
+    //   const interval = setInterval(()=> {
+    //   const rnd = Math.random(); //0 -> 0.99999
 
-      if(rnd < 0.5)
-      {
-        this.currentStatus.set('online'); 
-      }
-      else if(rnd < 0.9)
-      {
-        this.currentStatus.set('offline');
-      }
-      else{
-        this.currentStatus.set('unknown');
-      }
+    //   if(rnd < 0.5)
+    //   {
+    //     this.currentStatus.set('online'); 
+    //   }
+    //   else if(rnd < 0.9)
+    //   {
+    //     this.currentStatus.set('offline');
+    //   }
+    //   else{
+    //     this.currentStatus.set('unknown');
+    //   }
 
-    }, 3000);
+    // }, 3000);
 
-    this.destroyRef.onDestroy(() => {
-      console.log('Destroy component');
-      clearInterval(interval);
-    });
+    // this.destroyRef.onDestroy(() => {
+    //   console.log('Destroy component');
+    //   clearInterval(interval);
+    // });
   }
 
   
