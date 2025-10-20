@@ -8,7 +8,8 @@ import { Directive, ElementRef, Host, HostListener, inject, input } from "@angul
     }
 })
 export class SafeLinkDirective {
-    private el = inject(ElementRef);
+    //inject Host Element
+    private hostElementRef = inject<ElementRef<HTMLAnchorElement>>(ElementRef);
     queryParameter = input('myapp',{alias: 'appSafeLink'});
 
     constructor() {
@@ -35,8 +36,8 @@ export class SafeLinkDirective {
         event.preventDefault();
        }
        else{
-        const address = (event.target as HTMLAnchorElement).href;
-        (event.target as HTMLAnchorElement).href = address + '?from=' + this.queryParameter();
+        const address = this.hostElementRef.nativeElement.href;
+        this.hostElementRef.nativeElement.href = address + '?from=' + this.queryParameter();
         return;
        }
     }
