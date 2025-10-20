@@ -17,18 +17,6 @@ export class SafeLinkDirective {
         // console.log('SafeLinkDirective instantiated');
     }
 
-    // private highlight(color: string) {
-    //     this.el.nativeElement.style.backgroundColor = color;
-    // }
-
-    // onMouseEnter() {
-    //     this.highlight('brown');
-    // }
-    
-    // onMouseLeave() {
-    //     this.highlight('');
-    // }
-
     onConfirmLeavePage(event: MouseEvent) {
        const wantsToLeave =  window.confirm('Are you sure you want to leave this page?');
 
