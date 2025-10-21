@@ -1,12 +1,13 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'sort',
-  standalone: true
+  name: 'sortImpure',
+  standalone: true,
+  pure: false, // Detecting change within arrays or objects
 })
 export class SortPipe implements PipeTransform {
 
-  transform(value: Array<string | number>, typeOfSort: 'asc' | 'desc' = 'asc')
+  transform(value: string[] | number[], typeOfSort: 'asc' | 'desc' = 'asc')
   {
     if(!value || value.length === 0) return null;
 
