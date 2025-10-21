@@ -6,8 +6,20 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class TemperaturePipe implements PipeTransform {
 
-  transform(value: unknown, ...args: unknown[]): unknown {
-    return value + ' hoang';
+  transform(value: string | number) {
+    let val: number;
+
+    if(typeof value === 'string')
+    {
+      val = parseFloat(value);
+    }
+    else{
+      val = value;
+    }
+
+    //convert Celsius to Fahrenheit
+    const outputTemp = val * 9/5 + 32;
+    return `${outputTemp.toFixed(3)} °F`;
   }
 
 }
