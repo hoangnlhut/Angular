@@ -1,5 +1,6 @@
 import { DatePipe, DecimalPipe } from '@angular/common';
 import { Component } from '@angular/core';
+import { TemperaturePipe } from './temperature.pipe';
 
 
 
@@ -7,7 +8,7 @@ import { Component } from '@angular/core';
   selector: 'app-root',
   standalone: true,
   templateUrl: './app.component.html',
-  imports: [DecimalPipe, DatePipe],
+  imports: [DecimalPipe, DatePipe, TemperaturePipe],
 })
 export class AppComponent {
   currentDate = new Date();
