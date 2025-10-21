@@ -2,9 +2,11 @@ import { Directive, effect, inject, input, TemplateRef, ViewContainerRef } from 
 import { Permission } from './auth.model';
 import { AuthService } from './auth.service';
 
+// We won't use hostDirective here because this is STRUCTUREAL directive
+// so it will not effect with hostDirective
 @Directive({
   selector: '[appAuth]',
-  standalone: true
+  standalone: true,
 })
 export class AuthDirective {
   userType = input.required<Permission>({alias: 'appAuth'});
