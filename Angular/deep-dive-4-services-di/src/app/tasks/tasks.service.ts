@@ -5,7 +5,13 @@ import type { Task }  from "./task.model";
   providedIn: 'root',
 })
 export class TasksService {
-    tasks = signal<Task[]>([]);
+    private tasks = signal<Task[]>([]);
+
+    allTasks = this.tasks.asReadonly();
+
+    getById(id: string) {
+        return this.tasks().find((task) => task.id === id);
+    }
 
     addTask(task: { title: string, description: string }) {
         const newTask : Task = {
@@ -16,6 +22,17 @@ export class TasksService {
         };
 
         this.tasks.update((currentTasks) => [...currentTasks, newTask]);   
-    }      
+    }
+    
+    updateTaskStatus(taskId: string, status: string) {
+        this.tasks.update((currentTasks) => {
+            return currentTasks.map((task) => {
+                if (task.id === taskId) {
+                    return { ...task, status: status as Task['status'] };
+                }
+                return task;
+            });
+        });
+    }
 
 }
