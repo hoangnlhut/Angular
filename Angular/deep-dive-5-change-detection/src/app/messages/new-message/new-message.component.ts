@@ -13,16 +13,25 @@ import { MessagesService } from '../messages.service';
 export class NewMessageComponent {
   private messagesService = inject(MessagesService)
   // add = output<string>();
-  enteredText = signal('');
+
+  //using signal to manage the input state
+  // enteredText = signal('');
+  // onSubmit() {
+  //   // this.add.emit(this.enteredText());
+  //   this.messagesService.addMessage(this.enteredText());
+  //   this.enteredText.set('');
+  // }
+
+  // using normal value
+  enteredText = '';
+  onSubmit() {
+    // this.add.emit(this.enteredText());
+    this.messagesService.addMessage(this.enteredText);
+    this.enteredText = '';
+  }
 
   get debugOutput() {
     console.log('[NewMessage] "debugOutput" binding re-evaluated.');
     return 'NewMessage Component Debug Output';
-  }
-
-  onSubmit() {
-    // this.add.emit(this.enteredText());
-    this.messagesService.addMessage(this.enteredText());
-    this.enteredText.set('');
   }
 }

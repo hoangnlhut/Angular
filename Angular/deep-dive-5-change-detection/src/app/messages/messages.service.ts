@@ -4,10 +4,22 @@ import { Injectable, signal } from "@angular/core";
   providedIn: 'root',
 })
 export class MessagesService {
-    private messages = signal<string[]>([]);
-    allMessages = this.messages.asReadonly();
+    //using signal
+    // private messages = signal<string[]>([]);
+    // allMessages = this.messages.asReadonly();
+
+    // addMessage(message: string) {
+    //     this.messages.update(oldMessages => [...oldMessages, message]);
+    // }
+
+    //using normal array
+    private messages : string[] = [];
+
+    get allMessage(){
+        return [...this.messages];
+    }
 
     addMessage(message: string) {
-        this.messages.update(oldMessages => [...oldMessages, message]);
+        this.messages = [...this.messages, message];
     }
 }
