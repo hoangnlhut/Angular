@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject, input } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, DestroyRef, inject, input, OnInit } from '@angular/core';
 import { MessagesService } from '../messages.service';
 
 @Component({
@@ -8,17 +8,21 @@ import { MessagesService } from '../messages.service';
   styleUrl: './messages-list.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MessagesListComponent {
+export class MessagesListComponent implements OnInit {
   private messagesService = inject(MessagesService);
+  private changeDetectorRef = inject(ChangeDetectorRef);
+  private destroyRef = inject(DestroyRef);
 
-  //use signal
-  // messages = this.messagesService.allMessages;
+  messages: string[] = [];
 
-  // messages = input.required<string[]>();
-
-  //use normal input
-  get messages() {
-    return this.messagesService.allMessage;
+  ngOnInit() {
+    const subscription = this.messagesService.messages$.subscribe((messages) => {
+      this.messages = messages;
+      this.changeDetectorRef.markForCheck();
+    })
+    this.destroyRef.onDestroy(() => {
+      subscription.unsubscribe();
+    });
   }
 
   get debugOutput() {
