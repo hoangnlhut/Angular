@@ -14,20 +14,11 @@ export class NewMessageComponent {
   private messagesService = inject(MessagesService)
   // add = output<string>();
 
-  //using signal to manage the input state
-  // enteredText = signal('');
-  // onSubmit() {
-  //   // this.add.emit(this.enteredText());
-  //   this.messagesService.addMessage(this.enteredText());
-  //   this.enteredText.set('');
-  // }
-
-  // using normal value
-  enteredText = '';
+  enteredText = signal('');
   onSubmit() {
     // this.add.emit(this.enteredText());
-    this.messagesService.addMessage(this.enteredText);
-    this.enteredText = '';
+    this.messagesService.addMessage(this.enteredText());
+    this.enteredText.set('');
   }
 
   get debugOutput() {

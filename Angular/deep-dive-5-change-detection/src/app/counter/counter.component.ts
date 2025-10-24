@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject, NgZone, OnInit, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit, signal } from '@angular/core';
 
 import { InfoMessageComponent } from '../info-message/info-message.component';
 
@@ -12,7 +12,6 @@ import { InfoMessageComponent } from '../info-message/info-message.component';
 })
 export class CounterComponent implements OnInit {
   count = signal(0);
-  zone = inject(NgZone);
 
   get debugOutput() {
     console.log('[Counter] "debugOutput" binding re-evaluated.');
@@ -24,11 +23,9 @@ export class CounterComponent implements OnInit {
         console.log('hahahah!')
       }, 4000);
 
-    this.zone.runOutsideAngular(() => {
-      setTimeout(() => {
+    setTimeout(() => {
         console.log('Time expired!')
       }, 5000);
-    });
   }
 
   onDecrement() {
