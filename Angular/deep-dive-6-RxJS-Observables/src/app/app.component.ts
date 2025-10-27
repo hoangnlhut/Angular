@@ -1,5 +1,5 @@
 import { Component, DestroyRef, inject, OnInit } from '@angular/core';
-import { interval, take } from 'rxjs';
+import { interval, map, take } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -10,16 +10,15 @@ export class AppComponent implements OnInit {
   private destroyRef = inject(DestroyRef);
 
   ngOnInit(): void {
-    const subscription = interval(1000).subscribe({
-      next: (value) => console.log(value),// only care next, could also pass just a function to subscribe().
-      // that would be executed for every emiited value
-      complete: () => console.log('Completed'),
-      error: (err) => console.error('Error: ', err)
+    const subscription = interval(1000).pipe(
+      map(value => value * 2),
+    ).subscribe({
+      next: (value) => console.log(value)
     });
 
-    this.destroyRef.onDestroy(() => {
-      console.log('Component is being destroyed, unsubscribing from interval');
-      subscription.unsubscribe();
-    });
+    // this.destroyRef.onDestroy(() => {
+    //   console.log('Component is being destroyed, unsubscribing from interval');
+    //   subscription.unsubscribe();
+    // });
   }
 }
