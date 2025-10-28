@@ -1,6 +1,6 @@
-import { Component, computed, DestroyRef, effect, inject, OnInit, signal } from '@angular/core';
+import { Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
-import { interval, map, single, take } from 'rxjs';
+import { interval, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -8,42 +8,48 @@ import { interval, map, single, take } from 'rxjs';
   templateUrl: './app.component.html'
 })
 export class AppComponent implements OnInit {
-  private destroyRef = inject(DestroyRef);
   clickCount = signal(0);
+  destroyRef = inject(DestroyRef)
   clickCount$ = toObservable(this.clickCount);
 
   inteval$ = interval(1000);
-  //after that you can use computed() or effect() with this signal
-  // and/or ouptut it in the template
   intevalSignal = toSignal(this.inteval$, { initialValue: 10 });
-  // as map in interval
-  // changeValue = computed(() => this.clickCount() * 2); 
 
-  constructor() {
-    // effect(() => {
-    //   console.log(`Button clicked ${this.clickCount()} times`);
-    // }); 
-  }
+  customInterval$ = new Observable((subscriber) => {
+    let timesExecuted = 0;
+      const interval = setInterval(() => {
+        if (timesExecuted > 3){
+          subscriber.error('Limit Exceeded');
+          clearInterval(interval);
+          subscriber.complete();
+          return;
+        }
+        console.log('Emitting new value.....')
+        subscriber.next({ message: 'New Value'});
+        timesExecuted++;
+      }, 2000);
+   });
 
-  ngOnInit(): void {
-    // const subscription = interval(1000).pipe(
-    //   map(value => value * 2),
-    // ).subscribe({
-    //   next: (value) => console.log(value)
-    // });
-    const subscription = this.clickCount$.pipe(
-      map(value => value * 2)
-    ).subscribe({
-      next: (value) => console.log(`Button clicked doubled value: ${value}`)
-    });
+   constructor(){
+   }
 
-    this.destroyRef.onDestroy(() => {
-      console.log('Component is being destroyed, unsubscribing from interval');
-      subscription.unsubscribe();
-    });
-  }
-onClick(){
-      this.clickCount.update(preCount => preCount + 1);
-  }
+   ngOnInit(){
+    this.customInterval$.subscribe({
+        next: (val) => { console.log(val); },
+        error: (err) => { console.log(`Error Occurred: ${err}`); },
+        complete: () => { console.log('Completed'); }
+     });
+
+     const subscription = this.clickCount$.subscribe({
+        next: (val) => { console.log(`Clicked button ${this.clickCount()} times`); },
+     });
+
+     this.destroyRef.onDestroy(() => {
+        subscription.unsubscribe();
+     });
+   }
   
+   onClick(){
+    this.clickCount.update( count => count + 1);
+   }
 }
