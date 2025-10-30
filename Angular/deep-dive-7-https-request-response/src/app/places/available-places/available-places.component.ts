@@ -49,4 +49,24 @@ export class AvailablePlacesComponent implements OnInit {
       subscription.unsubscribe();
     });
   }
+
+  onSelectPlace(place: Place) {
+    this.httpClient.put<{userPlace: Place[]}>('http://localhost:3000/user-places', {
+      placeId : place.id
+    })
+    .pipe(
+      catchError( (error) => {
+          console.log(error);
+          return throwError(() => new Error('Error updating place'))
+      })
+    )
+    .subscribe({
+      next: (resData) =>{
+        console.log('Place updated successfully:', resData);
+      },
+      error: (error) =>{
+        this.error.set(error.message);
+      }
+    }); 
+  }
 }
