@@ -42,11 +42,19 @@ export class PlacesService {
   }
 
   addPlaceToUserPlaces(place: Place) {
-    this.userPlaces.update(prev => [...prev , place]);
+    const prevPlaces = this.userPlaces();
+
+    if(!prevPlaces.some(p => p.id === place.id)){
+      this.userPlaces.set([...prevPlaces , place]);
+    }
 
     return this.httpClient.put<{userPlace: Place[]}>('http://localhost:3000/user-places', {
       placeId : place.id
-    });
+    }).pipe(
+      catchError((error) => {
+        this.userPlaces.set(prevPlaces);
+        return throwError(() => new Error('Failed to store selected place. Please try again later.'));
+      }));;
   }
 
   removeUserPlace(place: Place) {}
