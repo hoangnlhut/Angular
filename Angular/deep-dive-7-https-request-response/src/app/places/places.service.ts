@@ -2,7 +2,7 @@ import { DestroyRef, inject, Injectable, signal } from '@angular/core';
 
 import { Place } from './place.model';
 import { HttpClient } from '@angular/common/http';
-import { catchError, map, throwError } from 'rxjs';
+import { catchError, map, tap, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -30,19 +30,23 @@ export class PlacesService {
   }
 
   loadUserPlaces() {
-    return  this.fetchPlaces('http://localhost:3000/user-places', "An error occurred while fetching your favourite places. Please try again later.");
-  }
-
-  addPlaceToUserPlaces(placeId: string) {
-    return this.httpClient.put<{userPlace: Place[]}>('http://localhost:3000/user-places', {
-      placeId
-    })
-    .pipe(
-      catchError( (error) => {
-          console.log(error);
-          return throwError(() => new Error('Error updating place'))
+    return  this.fetchPlaces('http://localhost:3000/user-places', "An error occurred while fetching your favourite places. Please try again later.").pipe(
+      tap({
+        next: (places) =>
+          {
+            this.userPlaces.set(places);
+            console.log('User places loaded:');
+          } 
       })
     );
+  }
+
+  addPlaceToUserPlaces(place: Place) {
+    this.userPlaces.update(prev => [...prev , place]);
+
+    return this.httpClient.put<{userPlace: Place[]}>('http://localhost:3000/user-places', {
+      placeId : place.id
+    });
   }
 
   removeUserPlace(place: Place) {}
