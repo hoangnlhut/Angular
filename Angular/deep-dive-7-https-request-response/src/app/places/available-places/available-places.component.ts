@@ -46,9 +46,6 @@ export class AvailablePlacesComponent implements OnInit {
     .subscribe({
       next: (resData) =>{
         console.log('Place updated successfully:', resData);
-      },
-      error: (error) =>{
-        this.error.set(error.message);
       }
     }); 
 
