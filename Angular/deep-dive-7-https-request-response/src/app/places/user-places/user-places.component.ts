@@ -18,14 +18,14 @@ export class UserPlacesComponent implements OnInit {
   isFetching = signal(false);
   error = signal('');
   private destroyRef = inject(DestroyRef);
-  private placeService = inject(PlacesService);
-  places = this.placeService.loadedUserPlaces;
+  private placesService = inject(PlacesService);
+  places = this.placesService.loadedUserPlaces;
 
   ngOnInit(){
       this.isFetching.set(true);
       
       setTimeout(()=> {
-      const subscription = this.placeService.loadUserPlaces()
+      const subscription = this.placesService.loadUserPlaces()
       .subscribe({
         error: (error : Error) =>{
           this.error.set(error.message);
@@ -41,4 +41,17 @@ export class UserPlacesComponent implements OnInit {
       });
       }, 5000);
     }
+
+  onSelectPlace(place: Place) {
+    const subscription = this.placesService.removeUserPlace(place)
+    .subscribe({
+      next: (resData) =>{
+        console.log('Favourite Place Removed successfully:', resData);
+      }
+    }); 
+
+    this.destroyRef.onDestroy(()=>{
+      subscription.unsubscribe();
+    });
+  }
 }
