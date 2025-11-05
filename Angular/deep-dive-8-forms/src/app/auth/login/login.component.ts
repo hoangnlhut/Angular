@@ -10,6 +10,26 @@ import { debounceTime } from 'rxjs';
   imports: [FormsModule, ReactiveFormsModule]
 })
 export class LoginComponent {
+
+//REACTIVE FORM APPROACH
+form = new FormGroup({
+  email: new FormControl(''),
+  password: new FormControl('')
+});
+
+onSubmit(){
+    console.log(this.form);
+    const enteredEmail = this.form.value.email;
+    const enteredPass = this.form.value.password;
+
+    console.log(enteredEmail, enteredEmail);
+
+}
+
+//END OF REACTIVE FORM APPROACH
+}
+
+
 // TEMPLATE-DRIVEN APPROACH
 //  private formVc = viewChild.required<NgForm>('form');
 //    private destroyRef = inject(DestroyRef);
@@ -49,16 +69,3 @@ export class LoginComponent {
 //     formData.form.reset();
 //   }
 // END OF TEMPLATE-DRIVEN APPROACH
-
-//REACTIVE FORM APPROACH
-form = new FormGroup({
-  email: new FormControl(''),
-  password: new FormControl('')
-});
-
-onSubmit(){
-
-}
-
-//END OF REACTIVE FORM APPROACH
-}
