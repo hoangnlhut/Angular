@@ -1,5 +1,5 @@
 import { afterNextRender, Component, DestroyRef, inject, viewChild, ViewChild } from '@angular/core';
-import { FormControl, FormGroup, FormsModule, NgForm } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, NgForm, ReactiveFormsModule } from '@angular/forms';
 import { debounceTime } from 'rxjs';
 
 @Component({
@@ -7,7 +7,7 @@ import { debounceTime } from 'rxjs';
   standalone: true,
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
-  imports: [FormsModule]
+  imports: [FormsModule, ReactiveFormsModule]
 })
 export class LoginComponent {
 // TEMPLATE-DRIVEN APPROACH
@@ -57,7 +57,7 @@ form = new FormGroup({
 });
 
 onSubmit(){
-  
+
 }
 
 //END OF REACTIVE FORM APPROACH
