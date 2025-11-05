@@ -1,4 +1,4 @@
-import { afterNextRender, Component, DestroyRef, inject, viewChild, ViewChild } from '@angular/core';
+import { afterNextRender, Component, DestroyRef, inject, OnInit, viewChild, ViewChild } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, FormsModule, NgForm, ReactiveFormsModule, Validators } from '@angular/forms';
 import { debounceTime, of } from 'rxjs';
 
@@ -27,7 +27,9 @@ function uniqueEmail(control: AbstractControl){
   styleUrl: './login.component.css',
   imports: [FormsModule, ReactiveFormsModule]
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit{
+
+  private destroyRef = inject(DestroyRef);
 
 //REACTIVE FORM APPROACH
 form = new FormGroup({
@@ -54,6 +56,25 @@ get InvalidPassword(){
     this.form.controls.password.dirty &&
     this.form.controls.password.invalid
   );
+}
+
+ngOnInit() {
+  const getStorageData = window.localStorage.getItem('saved-login-form');
+
+  if(getStorageData)
+  {
+    const getData = JSON.parse(getStorageData);
+    this.form.patchValue({
+      email: getData.email,
+    })
+  }
+  
+  debugger;
+  const subscription= this.form.valueChanges.subscribe({
+    next: (value) => window.localStorage.setItem('saved-login-form', JSON.stringify({email: value.email}))
+  });
+
+  this.destroyRef.onDestroy(() => subscription.unsubscribe());
 }
 
 onSubmit(){
