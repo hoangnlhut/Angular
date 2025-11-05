@@ -1,5 +1,5 @@
 import { afterNextRender, Component, DestroyRef, inject, viewChild, ViewChild } from '@angular/core';
-import { FormsModule, NgForm } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, NgForm } from '@angular/forms';
 import { debounceTime } from 'rxjs';
 
 @Component({
@@ -10,41 +10,55 @@ import { debounceTime } from 'rxjs';
   imports: [FormsModule]
 })
 export class LoginComponent {
-   private formVc = viewChild.required<NgForm>('form');
-   private destroyRef = inject(DestroyRef);
+// TEMPLATE-DRIVEN APPROACH
+//  private formVc = viewChild.required<NgForm>('form');
+//    private destroyRef = inject(DestroyRef);
 
-  constructor(){
-      const savedForm = window.localStorage.getItem('saved-login-form');
+//   constructor(){
+//       const savedForm = window.localStorage.getItem('saved-login-form');
 
-      if(savedForm){
-        const loadedFormData = JSON.parse(savedForm);
-        const savedEmail = loadedFormData.email;
-        setTimeout(()=> {
-            this.formVc().controls['email'].setValue(savedEmail);
-        }, 1);
-      }
+//       if(savedForm){
+//         const loadedFormData = JSON.parse(savedForm);
+//         const savedEmail = loadedFormData.email;
+//         setTimeout(()=> {
+//             this.formVc().controls['email'].setValue(savedEmail);
+//         }, 1);
+//       }
 
-      afterNextRender(()=>{
-        const subscription = this.formVc().valueChanges?.pipe(debounceTime(500)).subscribe({
-          next: (value) =>
-            window.localStorage.setItem('saved-login-form', JSON.stringify({email: value.email})),
-        });
+//       afterNextRender(()=>{
+//         const subscription = this.formVc().valueChanges?.pipe(debounceTime(500)).subscribe({
+//           next: (value) =>
+//             window.localStorage.setItem('saved-login-form', JSON.stringify({email: value.email})),
+//         });
 
-        this.destroyRef.onDestroy(()=> subscription?.unsubscribe());
-      });
-  }
+//         this.destroyRef.onDestroy(()=> subscription?.unsubscribe());
+//       });
+//   }
 
-  onSubmit(formData: NgForm) {
-    if(formData.form.invalid)
-    {
-      console.log('The form is invalid');
-      console.log(formData);
-      return;
-    }
+//   onSubmit(formData: NgForm) {
+//     if(formData.form.invalid)
+//     {
+//       console.log('The form is invalid');
+//       console.log(formData);
+//       return;
+//     }
 
-    const enteredEmail = formData.form.value.email;
-    const enteredPass = formData.form.value.password;
+//     const enteredEmail = formData.form.value.email;
+//     const enteredPass = formData.form.value.password;
 
-    formData.form.reset();
-  }
+//     formData.form.reset();
+//   }
+// END OF TEMPLATE-DRIVEN APPROACH
+
+//REACTIVE FORM APPROACH
+form = new FormGroup({
+  email: new FormControl(''),
+  password: new FormControl('')
+});
+
+onSubmit(){
+  
+}
+
+//END OF REACTIVE FORM APPROACH
 }
