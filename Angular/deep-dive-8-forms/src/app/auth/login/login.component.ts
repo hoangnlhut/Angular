@@ -1,5 +1,5 @@
 import { afterNextRender, Component, DestroyRef, inject, viewChild, ViewChild } from '@angular/core';
-import { FormControl, FormGroup, FormsModule, NgForm, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, NgForm, ReactiveFormsModule, Validators } from '@angular/forms';
 import { debounceTime } from 'rxjs';
 
 @Component({
@@ -13,16 +13,36 @@ export class LoginComponent {
 
 //REACTIVE FORM APPROACH
 form = new FormGroup({
-  email: new FormControl(''),
-  password: new FormControl('')
+  email: new FormControl('', {
+    validators: [Validators.email, Validators.required]
+  }),
+  password: new FormControl('', {
+    validators: [Validators.required, Validators.minLength(6)]
+  })
 });
+
+get InvalidEmail(){
+  return (
+    this.form.controls.email.touched &&
+    this.form.controls.email.dirty &&
+    this.form.controls.email.invalid
+  );
+}
+
+get InvalidPassword(){
+  return (
+    this.form.controls.password.touched &&
+    this.form.controls.password.dirty &&
+    this.form.controls.password.invalid
+  );
+}
 
 onSubmit(){
     console.log(this.form);
     const enteredEmail = this.form.value.email;
     const enteredPass = this.form.value.password;
 
-    console.log(enteredEmail, enteredEmail);
+    console.log(enteredEmail, enteredPass);
 
 }
 

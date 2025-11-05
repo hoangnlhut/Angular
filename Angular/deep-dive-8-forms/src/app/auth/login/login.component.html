@@ -70,6 +70,14 @@
 
     <button class="button">Login</button>
   </div>
+
+  @if (InvalidEmail) {
+  <p class="control-error">Invalid email address enter</p>
+  } @if (InvalidPassword) {
+  <p class="control-error">
+    Invalid password enter. It must be at least 6 character long
+  </p>
+  }
 </form>
 
 <!--END OF REACTIVE FORM APPROACH-->
