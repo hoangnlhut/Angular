@@ -14,6 +14,16 @@ export class LoginComponent {
    private destroyRef = inject(DestroyRef);
 
   constructor(){
+      const savedForm = window.localStorage.getItem('saved-login-form');
+
+      if(savedForm){
+        const loadedFormData = JSON.parse(savedForm);
+        const savedEmail = loadedFormData.email;
+        setTimeout(()=> {
+            this.formVc().controls['email'].setValue(savedEmail);
+        }, 1);
+      }
+
       afterNextRender(()=>{
         const subscription = this.formVc().valueChanges?.pipe(debounceTime(500)).subscribe({
           next: (value) =>
