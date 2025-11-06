@@ -11,6 +11,19 @@ function confirmPass(control: AbstractControl){
   return of({ isNotTheSamePassword: true });
 }
 
+function equalValues(nameControl1: string, nameControl2: string)
+{
+  return (control: AbstractControl) =>{
+     const value1 = control.get(nameControl1)?.value;
+     const value2 = control.get(nameControl2)?.value;
+
+     if(value1 === value2)
+     return null;
+
+     return {valuesNotEqual: true};
+  }
+}
+
 @Component({
   selector: 'app-signup',
   standalone: true,
@@ -33,7 +46,7 @@ export class SignupComponent {
         confirmPassword: new FormControl('', {
           validators: [Validators.required, Validators.minLength(6)]
         })}, 
-        {asyncValidators : [confirmPass]}),
+        { validators : [equalValues('password', 'confirmPassword')]}),
       firstName: new FormControl('', { validators: [Validators.required]}),
       lastName: new FormControl('', { validators: [Validators.required]}),
       address: new FormGroup({
@@ -63,6 +76,10 @@ export class SignupComponent {
       this.form.controls.passwords.dirty &&
       this.form.controls.passwords.invalid
     );
+  }
+
+  get invalidForm(){
+    return (this.form.touched && this.form.dirty && this.form.invalid);
   }
 
   // get validConfirmPassword(){

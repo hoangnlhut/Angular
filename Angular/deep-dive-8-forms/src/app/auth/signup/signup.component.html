@@ -175,16 +175,14 @@
     <button type="submit" class="button">Sign up</button>
   </p>
 
-  @if(validEmail) {
+  <!-- @if(validEmail) {
   <p class="control-error">Invalid inputted email</p>
   } @if(validPassword){
   <p class="control-error">
     Invalid inputted password. The password must at least contain 6 characters
   </p>
-  }
-  <!-- @if(validConfirmPassword){
-  <p class="control-error">
-    Invalid CONFIRM PASSWORD. The password must at least contain 6 characters
-  </p>
   } -->
+  @if(invalidForm){
+  <p class="control-error">Invalid form. Please check all input</p>
+  }
 </form>
