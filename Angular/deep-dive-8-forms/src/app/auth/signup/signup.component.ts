@@ -1,5 +1,16 @@
-import { Component } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Component, DestroyRef, inject, OnInit } from '@angular/core';
+import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { debounceTime, of } from 'rxjs';
+
+function confirmPass(control: AbstractControl){
+  debugger
+  if (control?.value != '')
+  {
+    return of(null);
+  }
+
+  return of({ isTheSame: true });
+}
 
 @Component({
   selector: 'app-signup',
@@ -9,6 +20,8 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
   imports: [ReactiveFormsModule]
 })
 export class SignupComponent {
+  private destroyRef = inject(DestroyRef);
+
     
   form = new FormGroup({
       email: new FormControl('', {
@@ -17,6 +30,17 @@ export class SignupComponent {
       password: new FormControl('', {
         validators: [Validators.required, Validators.minLength(6)]
       }),
+      confirmPassword: new FormControl('', {
+        validators: [Validators.required, Validators.minLength(6)], asyncValidators: [confirmPass]
+      }),
+      firstName: new FormControl('', { validators: [Validators.required]}),
+      lastName: new FormControl('', { validators: [Validators.required]}),
+      street: new FormControl('', { validators: [Validators.required]}),
+      number: new FormControl('', { validators: [Validators.required]}),
+      postal: new FormControl('', { validators: [Validators.required]}),
+      city: new FormControl('', { validators: [Validators.required]}),
+      role: new FormControl<'student' | 'teacher' | 'employee' | 'founder' | 'other'>('student', { validators: [Validators.required]}),
+      terms: new FormControl(false, { validators: [Validators.required]})
   });
 
   get validEmail(){
@@ -33,11 +57,25 @@ export class SignupComponent {
     );
   }
 
+  get validConfirmPassword(){
+    return (this.form.controls.confirmPassword.touched && 
+      this.form.controls.confirmPassword.dirty &&
+      this.form.controls.confirmPassword.invalid
+    );
+  }
 
+
+  // ngOnInit(): void {
+  //   const subscription = this.form.valueChanges.pipe(debounceTime(500)).subscribe({
+  //     next: (value)=> window.localStorage.setItem('saved-input', JSON.stringify({email: value.email, pass: value.password, confirmPass: value.confirmPassword}))
+  //   });
+
+  //   this.destroyRef.onDestroy(() => subscription.unsubscribe());
+  // }
 
   onSubmit(){
     if(this.form.invalid) return;
-    
+
     console.log(this.form);
 
     const enteredEmail = this.form.controls.email.value;
