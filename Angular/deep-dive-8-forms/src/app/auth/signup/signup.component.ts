@@ -3,13 +3,12 @@ import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, Validator
 import { debounceTime, of } from 'rxjs';
 
 function confirmPass(control: AbstractControl){
-  debugger
-  if (control?.value != '')
+  if (control.value?.password === control.value?.confirmPassword)
   {
     return of(null);
   }
 
-  return of({ isTheSame: true });
+  return of({ isNotTheSamePassword: true });
 }
 
 @Component({
@@ -27,18 +26,22 @@ export class SignupComponent {
       email: new FormControl('', {
         validators: [Validators.required, Validators.email]
       }),
-      password: new FormControl('', {
-        validators: [Validators.required, Validators.minLength(6)]
-      }),
-      confirmPassword: new FormControl('', {
-        validators: [Validators.required, Validators.minLength(6)], asyncValidators: [confirmPass]
-      }),
+      passwords: new FormGroup({
+          password: new FormControl('', {
+          validators: [Validators.required, Validators.minLength(6)]
+        }),
+        confirmPassword: new FormControl('', {
+          validators: [Validators.required, Validators.minLength(6)]
+        })}, 
+        {asyncValidators : [confirmPass]}),
       firstName: new FormControl('', { validators: [Validators.required]}),
       lastName: new FormControl('', { validators: [Validators.required]}),
-      street: new FormControl('', { validators: [Validators.required]}),
-      number: new FormControl('', { validators: [Validators.required]}),
-      postal: new FormControl('', { validators: [Validators.required]}),
-      city: new FormControl('', { validators: [Validators.required]}),
+      address: new FormGroup({
+        street: new FormControl('', { validators: [Validators.required]}),
+        number: new FormControl('', { validators: [Validators.required]}),
+        postal: new FormControl('', { validators: [Validators.required]}),
+        city: new FormControl('', { validators: [Validators.required]}),
+      }),
       role: new FormControl<'student' | 'teacher' | 'employee' | 'founder' | 'other'>('student', { validators: [Validators.required]}),
       terms: new FormControl(false, { validators: [Validators.required]})
   });
@@ -51,18 +54,18 @@ export class SignupComponent {
   }
 
   get validPassword(){
-    return (this.form.controls.password.touched && 
-      this.form.controls.password.dirty &&
-      this.form.controls.password.invalid
+    return (this.form.controls.passwords.touched && 
+      this.form.controls.passwords.dirty &&
+      this.form.controls.passwords.invalid
     );
   }
 
-  get validConfirmPassword(){
-    return (this.form.controls.confirmPassword.touched && 
-      this.form.controls.confirmPassword.dirty &&
-      this.form.controls.confirmPassword.invalid
-    );
-  }
+  // get validConfirmPassword(){
+  //   return (this.form.controls.confirmPassword.touched && 
+  //     this.form.controls.confirmPassword.dirty &&
+  //     this.form.controls.confirmPassword.invalid
+  //   );
+  // }
 
 
   // ngOnInit(): void {
@@ -79,7 +82,7 @@ export class SignupComponent {
     console.log(this.form);
 
     const enteredEmail = this.form.controls.email.value;
-    const enteredPassword = this.form.controls.password.value;
+    const enteredPassword = this.form.controls.passwords.value;
 
     console.log(enteredEmail, enteredPassword);
   }

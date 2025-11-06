@@ -12,7 +12,7 @@
     />
   </div>
 
-  <div class="control-row">
+  <div class="control-row" formGroupName="passwords">
     <div class="control">
       <label for="password">Password</label>
       <input
@@ -108,7 +108,7 @@
   <div class="control-row">
     <div class="control">
       <label for="role">What best describes your role?</label>
-      <select id="role" name="role">
+      <select id="role" name="role" formControlName="role">
         <option value="student">Student</option>
         <option value="teacher">Teacher</option>
         <option value="employee">Employee</option>
@@ -139,7 +139,12 @@
   <div class="control-row">
     <div class="control">
       <label for="terms-and-conditions">
-        <input type="checkbox" id="terms-and-conditions" name="terms" />
+        <input
+          type="checkbox"
+          id="terms-and-conditions"
+          name="terms"
+          formControlName="terms"
+        />
         I agree to the terms and conditions
       </label>
     </div>
@@ -158,9 +163,10 @@
   <p class="control-error">
     Invalid inputted password. The password must at least contain 6 characters
   </p>
-  } @if(validConfirmPassword){
+  }
+  <!-- @if(validConfirmPassword){
   <p class="control-error">
     Invalid CONFIRM PASSWORD. The password must at least contain 6 characters
   </p>
-  }
+  } -->
 </form>
