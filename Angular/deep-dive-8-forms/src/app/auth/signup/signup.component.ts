@@ -1,5 +1,5 @@
 import { Component, DestroyRef, inject, OnInit } from '@angular/core';
-import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AbstractControl, FormArray, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { debounceTime, of } from 'rxjs';
 
 function confirmPass(control: AbstractControl){
@@ -43,6 +43,11 @@ export class SignupComponent {
         city: new FormControl('', { validators: [Validators.required]}),
       }),
       role: new FormControl<'student' | 'teacher' | 'employee' | 'founder' | 'other'>('student', { validators: [Validators.required]}),
+      source : new FormArray([
+        new FormControl(false),
+        new FormControl(false),
+        new FormControl(false),
+      ]),
       terms: new FormControl(false, { validators: [Validators.required]})
   });
 
