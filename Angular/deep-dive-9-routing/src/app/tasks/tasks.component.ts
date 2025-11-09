@@ -14,8 +14,5 @@ import { TasksService } from './tasks.service';
 export class TasksComponent {
   private taskService = inject(TasksService);
   userId = input.required<string>();
-  userTasks: Task[] = [];
-
- 
- 
+  userTasks = computed(() => this.taskService.allTasks().filter(task => task.userId === this.userId()));
 }
