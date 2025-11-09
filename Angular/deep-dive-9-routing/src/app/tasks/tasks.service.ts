@@ -40,6 +40,12 @@ export class TasksService {
     }
   }
 
+  getTaskWithIdUser(idUser: string){
+    this.tasks.update((prevTasks) =>
+      prevTasks.filter((task) => task.userId === idUser)
+    );
+  }
+
   addTask(taskData: NewTaskData, userId: string) {
     this.tasks.update((prevTasks) => [
       {
