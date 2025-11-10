@@ -16,6 +16,7 @@ export class TasksComponent implements OnInit{
   private taskService = inject(TasksService);
 
   order = signal<'asc' | 'desc'>('desc');
+  message = input.required<string>();
 
   userId = input.required<string>();
   userTasks = computed(() => 
@@ -34,6 +35,7 @@ export class TasksComponent implements OnInit{
   private destroyRef = inject(DestroyRef);
 
   ngOnInit(): void {
+    console.log(this.message());
     const subscription = this.activatedRoute.queryParams.subscribe({
       next: param => this.order.set(param['order'])
     });
