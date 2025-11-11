@@ -3,7 +3,7 @@ import { Component, computed, DestroyRef, inject, input, OnChanges, OnInit, sign
 import { TaskComponent } from './task/task.component';
 import { Task } from './task/task.model';
 import { TasksService } from './tasks.service';
-import { ActivatedRoute, RouterLink } from "@angular/router";
+import { ActivatedRoute, ActivatedRouteSnapshot, ResolveFn, RouterLink, RouterStateSnapshot } from "@angular/router";
 
 @Component({
   selector: 'app-tasks',
@@ -12,36 +12,34 @@ import { ActivatedRoute, RouterLink } from "@angular/router";
   styleUrl: './tasks.component.css',
   imports: [TaskComponent, RouterLink],
 })
-export class TasksComponent implements OnInit{
-  private taskService = inject(TasksService);
-
-  order = signal<'asc' | 'desc'>('desc');
+export class TasksComponent{
+  order = input<'asc' | 'desc' | undefined>();
   message = input.required<string>();
-
   userId = input.required<string>();
-  userTasks = computed(() => 
-    this.taskService.allTasks()
-    .filter(task => task.userId === this.userId())
-    .sort((a, b) => 
-      this.order() === 'desc' ? (a.id > b.id ? -1 : 1) : (a.id > b.id ? 1 : -1))
-  );
-
-  //1. input signal ways
-  // order = input<'asc' | 'desc'>();
-
-  //2. activatedRoute observable way
-  // order? : 'asc' | 'desc';
-  private activatedRoute = inject(ActivatedRoute);
-  private destroyRef = inject(DestroyRef);
-
-  ngOnInit(): void {
-    console.log(this.message());
-    const subscription = this.activatedRoute.queryParams.subscribe({
-      next: param => this.order.set(param['order'])
-    });
-
-    this.destroyRef.onDestroy(() => subscription.unsubscribe());
-  }
-
-  
+  userTasks = input.required<Task[]>();
 }
+
+export const resolveUserTasks : ResolveFn<Task[]> = 
+(activedRouteSnapshot: ActivatedRouteSnapshot,
+ routerState: RouterStateSnapshot 
+ ) =>{
+    console.log('resolveUserTasks is running');
+    const order = activedRouteSnapshot.queryParams['order'];
+    const taskService = inject(TasksService);
+    const tasks = taskService
+      .allTasks()
+      .filter(task => task.userId === activedRouteSnapshot.paramMap.get('userId'));
+    
+    if(order && order === 'asc')
+    {
+      tasks.sort((a,b) => (a.id > b.id) ? 1: -1)
+    }
+    else
+    {
+      tasks.sort((a,b) => (a.id > b.id) ? -1: 1)
+    }
+
+    return tasks.length ? tasks: [];
+ };
+  
+
