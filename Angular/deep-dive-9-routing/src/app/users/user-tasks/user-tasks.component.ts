@@ -52,3 +52,10 @@ export class UserNameResolverClass implements Resolve<string> {
     return userName;
   }
 }
+
+export const resolveUserTaskTitle: ResolveFn<string> = (
+  activedRoute: ActivatedRouteSnapshot,
+ routerState: RouterStateSnapshot ) => {
+  const userName = resolveUsername(activedRoute, routerState);
+  return `${userName}'s Tasks`;
+};
