@@ -1,8 +1,8 @@
 import { Component, inject, input, signal } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 
 import { TasksService } from '../tasks.service';
-import { Router, RouterLink } from "@angular/router";
+import { ActivatedRouteSnapshot, CanDeactivateFn, Router, RouterLink, RouterStateSnapshot } from "@angular/router";
 
 @Component({
   selector: 'app-new-task',
@@ -16,6 +16,7 @@ export class NewTaskComponent {
   enteredTitle = signal('');
   enteredSummary = signal('');
   enteredDate = signal('');
+  isSubmit = false;
   private tasksService = inject(TasksService);
   private route = inject(Router);
 
@@ -28,7 +29,8 @@ export class NewTaskComponent {
       },
       this.userId()
     );
-    console.log('Submit successfully');
+
+    this.isSubmit = true;
 
     this.route.navigate(['/users', this.userId(), 'tasks'], {
       replaceUrl: true
@@ -36,3 +38,13 @@ export class NewTaskComponent {
   }
 
 }
+
+export const canLeaveEditPage: CanDeactivateFn<NewTaskComponent> = (component: NewTaskComponent, currentRoute: ActivatedRouteSnapshot, currentState: RouterStateSnapshot, nextState: RouterStateSnapshot) => {
+    if(component.isSubmit) return true;
+
+    if (component.enteredDate() || component.enteredSummary()  || component.enteredTitle())
+    {
+      return confirm('You have unsaved changes. Are you sure you want to leave?');
+    }
+    return true;
+};
