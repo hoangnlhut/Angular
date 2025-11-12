@@ -8,7 +8,9 @@ import { inject } from "@angular/core";
 export const dummyCanMatch: CanMatchFn = (route, segments) => {
     const router = inject(Router);
     const shouldGetAccess = Math.random();
-    if(shouldGetAccess > 0.5) return true;
+    // if(shouldGetAccess > 0.5) 
+    if(shouldGetAccess < 1) 
+        return true;
 
     return new RedirectCommand(router.parseUrl('/unauthorized'));
 
@@ -25,7 +27,7 @@ export const routes: Routes = [
         path: 'users/:userId', // <your-domain>/users/<uid>
         component: UserTasksComponent,
         children: routesUser,
-        // canMatch: [dummyCanMatch],
+        canMatch: [dummyCanMatch],
         data: {
             message: 'Hello world'
         },
