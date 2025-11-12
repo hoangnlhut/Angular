@@ -35,14 +35,24 @@
 
   <p>Best of all? This course doesn't stop at the basics!</p>
 
-  <p>
+  <p #showViews>
     We'll not just scratch the surface but dive deeply into Angular as well as
     TypeScript concepts which are especially important for Angular developers!
   </p>
 </section>
 
-@defer (on interaction; prefetch on hover) {
+<!-- @defer (on interaction; prefetch on hover) {
 <app-offer-preview />
 } @placeholder {
 <p class="fallback">We might have an offer....</p>
+} -->
+
+@defer(on hover; on interaction(showViews)) {
+<app-offer-preview />
+} @placeholder(minimum 3s) {
+<p class="fallback">We might have an offer....</p>
+} @loading (minimum 1s; after 500ms) {
+<p class="fallback">Loading...</p>
+} @error {
+<p>Failed to load view</p>
 }
