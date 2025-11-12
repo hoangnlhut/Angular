@@ -31,7 +31,6 @@ export const routes: Routes = [
     component: UserTasksComponent,
     loadChildren: () => import('./users/users.routes')
     .then(mod => mod.routes),
-    // children: userRoutes,
     canMatch: [dummyCanMatch],
     data: {
       message: 'Hello!',
