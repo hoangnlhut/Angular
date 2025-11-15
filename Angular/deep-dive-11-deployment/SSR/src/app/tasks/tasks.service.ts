@@ -33,13 +33,14 @@ export class TasksService {
   allTasks = this.tasks.asReadonly();
 
   constructor() {
-    afterNextRender(() => {
-        const tasks = localStorage.getItem('tasks');
+    afterNextRender(() =>{
+      const tasks = localStorage.getItem('tasks');
 
-        if (tasks) {
-          this.tasks.set(JSON.parse(tasks));
-        }
+    if (tasks) {
+      this.tasks.set(JSON.parse(tasks));
+    }
     });
+    
   }
 
   addTask(taskData: NewTaskData, userId: string) {
