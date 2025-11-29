@@ -3,10 +3,11 @@ import { bootstrapApplication } from '@angular/platform-browser';
 import { AppComponent } from './app/app.component';
 import { provideStore } from '@ngrx/store';
 import { counterReducer } from './app/counter/counter.reducer';
+import { provideEffects } from '@ngrx/effects';
 
 bootstrapApplication(AppComponent, {
-    providers: [provideStore({
-        //key  ---- value
-        counter: counterReducer  
-    })]
+    providers: [
+        provideStore({
+        counter: counterReducer}), //key  ---- value
+        provideEffects()]
 });
