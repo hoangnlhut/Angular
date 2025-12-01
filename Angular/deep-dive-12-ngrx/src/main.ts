@@ -4,10 +4,13 @@ import { AppComponent } from './app/app.component';
 import { provideStore } from '@ngrx/store';
 import { counterReducer } from './app/counter/counter.reducer';
 import { provideEffects } from '@ngrx/effects';
+import { CounterEffects } from './app/counter/counter.effects';
 
 bootstrapApplication(AppComponent, {
     providers: [
         provideStore({
-        counter: counterReducer}), //key  ---- value
-        provideEffects()]
+        counter: counterReducer
+        }), //key  ---- value
+        provideEffects([CounterEffects])
+    ]
 });
