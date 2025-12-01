@@ -3,6 +3,10 @@ import { createAction, props } from "@ngrx/store";
 export const INCREMENT = '[Counter] Increment';
 export const DECREMENT = '[Counter] Decrement';
 
+export const init = createAction('[Counter] Init');
+
+export const set = createAction('[Counter] Set', props<{ value: number }>());
+
 export const increment = createAction(INCREMENT, props<{value: number}>());
 export const decrement = createAction(DECREMENT,  props<{value: number}>());
 
